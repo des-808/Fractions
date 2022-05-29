@@ -1,13 +1,5 @@
 ﻿#include"Header.h"
 
-//using namespace std;
-
-//#define STRUCT_POINT
-//#define DISTANCE
-//#define CONSTRUCTORS_CHEK
-//#define COPI_ASSIGMENT_1
-#define COPI_ASSIGMENT_2
-
 //создаём структуру
 class Fraction {
 	int integer;// celoe;
@@ -37,27 +29,17 @@ public:
  }
 		return max;
 	}
-	//int minKrChislo(/*int numerator_left,*/int denominator_left,/* int numerator_right,*/ int denominator_right) {
-	//	/*int min = 0;
-	//	int xz = denominator_left * denominator_right;
-
-	//	int mn1 = xz / denominator_left;
-	//	int mn2 = xz / denominator_right;
-	//	numerator_left *= mn1;
-	//	denominator_left *= mn1;
-	//	numerator_right *= mn2;
-	//	denominator_right *= mn2;*/
-	//	
-	//	return xz;
-	//}
+	int minKrChislo(int denominator_left, int denominator_right) {
+		return denominator_left * (denominator_right / gcd(denominator_left, denominator_right));
+	}
 	////////////////////////////////////////////////////
-	int gcd(int a, int b) {
-		while (b > 0) {
-			int tmp = b;
-			b = a % b; // % is remainder
-			a = tmp;
+	int gcd(int denominator_left, int denominator_right) {
+		while (denominator_right > 0) {
+			int tmp = denominator_right;
+			denominator_right = denominator_left % denominator_right; // % is remainder
+			denominator_left = tmp;
 		}
-		return a;
+		return denominator_left;
 	}
 
 	//int gcd(int input[]) {
@@ -68,9 +50,9 @@ public:
 	//	return result;
 	//}
 
-	int lcm(int a, int b) {
+	/*int lcm(int a, int b) {
 		return a * (b / gcd(a, b));
-	}
+	}*/
 
 	//int lcm(int input[]) {
 	//	int result = input[0];
@@ -186,93 +168,66 @@ Fraction& operator+(const Fraction& left, const Fraction& right) {
 		result.set_denominator(left.get_denominator());
 	}
 	else {
-	result.set_numerator(left.get_numerator() + right.get_numerator());
-	result.set_denominator(left.get_denominator() + right.get_denominator());}
+		int nok = result.minKrChislo(left.get_denominator(), right.get_denominator());
+		int mn1 = nok /  left.get_denominator();
+		int mn2 = nok / right.get_denominator();
+		result.set_numerator  (left.  get_numerator() * mn1 + right.  get_numerator() * mn2);
+		result.set_denominator(left.get_denominator() * mn1);// + right.get_denominator() * mn2
+	}
 	return result;
 }
 
 
-//Fraction& operator-(const Fraction& left, const Fraction& right) {
-//	Fraction result;
-//	result.set_x(left.get_x() - right.get_x());
-//	result.set_y(left.get_y() - right.get_y());
-//	return result;
-//}
+Fraction& operator-(const Fraction& left, const Fraction& right) {
+	Fraction result;
+	if(left.get_denominator() == right.get_denominator()) {
+		result.set_numerator((left.get_numerator() > right.get_numerator()) ? left.get_numerator() - right.get_numerator() : right.get_numerator() - left.get_numerator());
+		result.set_denominator(left.get_denominator());
+	}
+	else {
+	int nok = result.minKrChislo(left.get_denominator(), right.get_denominator());
+	int mn1 = nok / left.get_denominator();
+	int mn2 = nok / right.get_denominator();
+	result.set_numerator(left.get_numerator() * mn1 - right.get_numerator() * mn2);
+	result.set_denominator(left.get_denominator() * mn1 );//- right.get_denominator() * mn2
+	}
+	return result;
+}
 Fraction& operator*(const Fraction& left, const Fraction& right) {
 	Fraction result;
 	result.set_numerator(left.get_numerator() * right.get_numerator());
 	result.set_denominator(left.get_denominator() * right.get_denominator());
 	return result;
 }
-//Fraction& operator/(const Fraction& left, const Fraction& right) {
+//
+//Fraction& operator/(const Fraction& left, const int right) {
 //	Fraction result;
-//	result.set_x(left.get_x() / right.get_x());
-//	result.set_y(left.get_y() / right.get_y());
+//	result.set_numerator(left.get_numerator() / right);
+//	result.set_denominator(left.get_denominator() / right);
 //	return result;
 //}
-Fraction& operator/(const Fraction& left, const int right) {
-	Fraction result;
-	result.set_numerator(left.get_numerator() / right);
-	result.set_denominator(left.get_denominator() / right);
-	return result;
-}
 
 
 
 
 int main() {
 	setlocale(LC_ALL, "Russian");
-#ifdef STRUCT_POINT 
-	Point A;
-	A.x = 2;
-	A.y = 6;
-	cout << A.x << "\t" << A.y << endl;
-	Point* pA = &A;
-	cout << pA->x << "\t" << pA->y << endl;
-#endif
-#ifdef DISTANCE
-	Point Obj_A(2, 3);
-	Point Obj_B(7, 8);
-	Obj_A.print();
-	Obj_B.print();
 
-	cout << Obj_A.lenghtToPoint(Obj_B) << endl;
-	cout << Obj_B.lenghtToPoint(Obj_A) << endl;
-	cout << LenghtPointToPoint(Obj_A, Obj_B) << endl;
-	cout << LenghtPointToPoint(Obj_B, Obj_A) << endl;
-#endif // DISTANCE
-#ifdef CONSTRUCTORS_CHEK
-	Point Obj_A;
-	Point Obj_B(13, 14);
-	Point Obj_C = 5;
-	Obj_A.print();
-	Obj_B.print();
-	Obj_C.print();
-	Point Obj_D = Obj_C;
-	Obj_D.print();
-#endif // CONSTRUCTORS_CHEK
-#ifdef COPI_ASSIGMENT_1
-	Point A(2, 3);
-	Point B = A;
-	Point C;
-	C = A;
-#endif //
-
-#ifdef COPI_ASSIGMENT_2
-	Fraction D(10,15);
-	Fraction E(55,20);
+	Fraction D(2,3);
+	Fraction E(1,4);
 	if (D >= E) { cout << "rabotaet" << endl; }
 	cout << "E =       "; E.print();
 	cout << "D =       "; D.print();
 	Fraction C(2,36);
-	int xz=C.lcm(9, 17);
-	cout << "xz = " << xz << endl;
-	//C = E*D;
+	int xz=C.minKrChislo(9, 17);cout << "xz = " << xz << endl;
+	
+	C = E + D; cout << "C = E+D   "; C.print();
+	C = E - D; cout << "C = E-D   "; C.print();
 	//C = C / C.minKrChislo(C.get_numerator(), C.get_denominator());
 	//int z  = C.minKrChislo(C.get_denominator(), E.get_denominator());
 	//cout << "z = " << z << endl;
-	cout << "CCC =       "; C.print();
-	cout << "C = E*D   "; C.print();
+	/*cout << "CCC =       "; C.print();
+	cout << "C = E+D   "; C.print();*/
 	/*Fraction A(2,1, 2);
 	Fraction B(3, 4);*/
 	D(2,14, 17);
@@ -292,17 +247,10 @@ int main() {
 	cout << "D =       "; D.print();*/
 	//A = B = C = Point(2, 3);
 
-	
-
-#endif //
 
 	return 0;
 }
 
-
-//double LenghtPointToPoint(Fraction& A, Fraction& B) {
-//	return sqrt(pow((A.get_x() - B.get_x()), 2) + pow((A.get_y() - B.get_y()), 2));
-//}
 
 
 /*
@@ -427,7 +375,7 @@ add(A,B) можно было написать A+B
 если унарный оператор перегружается в классе то он ни когда не принимает ни каких параметров
 а его единственным операндом будет обьект для которого он вызывается к которому можно обращаться через this
 если унарный оператор перегружается за классом то в обяз порядке он принимает один и только один параметр - свой операнд
-если бирный оператор перегружается в классе то в обяз порядке он принимает один и только один параметр - свой операнд с права его
+если бинарный оператор перегружается в классе то в обяз порядке он принимает один и только один параметр - свой операнд с права его
 операндом с лева будет обьект для которого он вызывается(this)
 
 если бирный оператор перегружается за классом то в обяз порядке будет принимать 2 параметра - операнд слева и операнд с права
