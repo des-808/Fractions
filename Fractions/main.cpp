@@ -27,9 +27,70 @@ public:
 		this->numerator = numerator;
 		this->denominator = denominator;
 	}
-	
+	int maxKrChislo(int numerator, int denominator) {
+		int max = 0;
+		int xz = (numerator > denominator) ?  denominator: numerator;
+		for(int i = 2; i < xz/2;i+=2){
+			if (numerator % i == 0 && denominator % i == 0) {
+				max = ((numerator > denominator) ? denominator / i : numerator / i);
+		}
+ }
+		return max;
+	}
+	//int minKrChislo(/*int numerator_left,*/int denominator_left,/* int numerator_right,*/ int denominator_right) {
+	//	/*int min = 0;
+	//	int xz = denominator_left * denominator_right;
+
+	//	int mn1 = xz / denominator_left;
+	//	int mn2 = xz / denominator_right;
+	//	numerator_left *= mn1;
+	//	denominator_left *= mn1;
+	//	numerator_right *= mn2;
+	//	denominator_right *= mn2;*/
+	//	
+	//	return xz;
+	//}
+	////////////////////////////////////////////////////
+	int gcd(int a, int b) {
+		while (b > 0) {
+			int tmp = b;
+			b = a % b; // % is remainder
+			a = tmp;
+		}
+		return a;
+	}
+
+	//int gcd(int input[]) {
+	//	int result = input[0];
+	//	for (int i = 1; i < input.length; i++) {
+	//		result = gcd(result, input[i]);
+	//	}
+	//	return result;
+	//}
+
+	int lcm(int a, int b) {
+		return a * (b / gcd(a, b));
+	}
+
+	//int lcm(int input[]) {
+	//	int result = input[0];
+	//	for (int i = 1; i < input.length; i++) {
+	//		result = lcm(result, input[i]);
+	//	}
+	//	return result;
+	//}
+	////////////////////////////////////////////////////
 	//void print() { cout << "Целое = " << this->integer << "\t" << "Числитель = " << this->numerator << "\t" << "Знаменатель = " << this->denominator << endl; }
-	void print() { cout << "Целое = " << this->integer << "\t"  << this->numerator << "/"  << this->denominator << endl; }
+	void print() {
+		if (this->numerator > this->denominator) {
+			//this->integer = this->numerator / this->denominator;
+			//this->numerator %= this->denominator;
+			cout << this->numerator / this->denominator << "." << this->numerator % this->denominator << "/" << this->denominator << endl;
+		}
+		else {
+			cout << this->numerator << "/" << this->denominator << endl;
+		}
+	}
 	Fraction& operator= (const Fraction& other) {// оператор присвоения
 		if (other.numerator > other.denominator) {
 			this->integer = other.numerator / other.denominator; this->numerator = other.numerator % other.denominator;
@@ -41,7 +102,7 @@ public:
 		//cout << "copyAssigment  " << this << endl;
 		return *this;
 	}
-	Fraction& operator++() {
+	/*Fraction& operator++() {
 		numerator++;
 		denominator++;
 		return *this;
@@ -62,7 +123,7 @@ public:
 		this->numerator--;
 		this->denominator--;
 		return vspom;
-	}
+	}*/
 	Fraction& operator()(int integer,int numerator, int denominator)
 	{
 		set_numerator(integer * denominator + numerator);
@@ -90,30 +151,30 @@ public:
 		this->integer = other.integer;
 		this->numerator = other.numerator;
 		this->denominator = other.denominator;
-		cout << "copyconstructor" << this << endl;
+		//cout << "copyconstructor" << this << endl;
 	}
 	~Fraction() {//деструктор класса
 		//cout << "destructor "<< this<< endl;
 	}
 };
 
-bool operator==(const Fraction left, const Fraction right) {
+bool operator==(const Fraction& left, const Fraction& right) {
 	if ((left.get_numerator() * right.get_denominator()) == (left.get_denominator() * right.get_numerator())) { return true; }
 	else { return false; }
 }
-bool operator>=(const Fraction left, const Fraction right) {
+bool operator>=(const Fraction& left, const Fraction& right) {
 	if ((left.get_numerator() * right.get_denominator()) >= (left.get_denominator() * right.get_numerator())) { return true; }
 	else { return false; }
 }
-bool operator<=(const Fraction left, const Fraction right) {
+bool operator<=(const Fraction& left, const Fraction& right) {
 	if ((left.get_numerator() * right.get_denominator()) <= (left.get_denominator() * right.get_numerator())) { return true; }
 	else { return false; }
 }
-bool operator> (const Fraction left, const Fraction right) {
+bool operator> (const Fraction& left, const Fraction& right) {
 	if ((left.get_numerator() * right.get_denominator()) > (left.get_denominator() * right.get_numerator())) { return true; }
 	else { return false; }
 }
-bool operator< (const Fraction left, const Fraction right) {
+bool operator< (const Fraction& left, const Fraction& right) {
 	if ((left.get_numerator() * right.get_denominator()) < (left.get_denominator() * right.get_numerator())) { return true; }
 	else { return false; }
 }
@@ -123,7 +184,6 @@ Fraction& operator+(const Fraction& left, const Fraction& right) {
 	if (left.get_denominator() == right.get_denominator()) {
 		result.set_numerator(left.get_numerator() + right.get_numerator()) ;
 		result.set_denominator(left.get_denominator());
-
 	}
 	else {
 	result.set_numerator(left.get_numerator() + right.get_numerator());
@@ -138,18 +198,27 @@ Fraction& operator+(const Fraction& left, const Fraction& right) {
 //	result.set_y(left.get_y() - right.get_y());
 //	return result;
 //}
-//Fraction& operator*(const Fraction& left, const Fraction& right) {
-//	Fraction result;
-//	result.set_x(left.get_x() * right.get_x());
-//	result.set_y(left.get_y() * right.get_y());
-//	return result;
-//}
+Fraction& operator*(const Fraction& left, const Fraction& right) {
+	Fraction result;
+	result.set_numerator(left.get_numerator() * right.get_numerator());
+	result.set_denominator(left.get_denominator() * right.get_denominator());
+	return result;
+}
 //Fraction& operator/(const Fraction& left, const Fraction& right) {
 //	Fraction result;
 //	result.set_x(left.get_x() / right.get_x());
 //	result.set_y(left.get_y() / right.get_y());
 //	return result;
 //}
+Fraction& operator/(const Fraction& left, const int right) {
+	Fraction result;
+	result.set_numerator(left.get_numerator() / right);
+	result.set_denominator(left.get_denominator() / right);
+	return result;
+}
+
+
+
 
 int main() {
 	setlocale(LC_ALL, "Russian");
@@ -190,18 +259,24 @@ int main() {
 #endif //
 
 #ifdef COPI_ASSIGMENT_2
-	Fraction D(3,15);
-	Fraction E(4,18);
+	Fraction D(10,15);
+	Fraction E(55,20);
 	if (D >= E) { cout << "rabotaet" << endl; }
-	E.print();
-	D.print();
-	Fraction C;
-	C = E+D;
-	C.print();
+	cout << "E =       "; E.print();
+	cout << "D =       "; D.print();
+	Fraction C(2,36);
+	int xz=C.lcm(9, 17);
+	cout << "xz = " << xz << endl;
+	//C = E*D;
+	//C = C / C.minKrChislo(C.get_numerator(), C.get_denominator());
+	//int z  = C.minKrChislo(C.get_denominator(), E.get_denominator());
+	//cout << "z = " << z << endl;
+	cout << "CCC =       "; C.print();
+	cout << "C = E*D   "; C.print();
 	/*Fraction A(2,1, 2);
 	Fraction B(3, 4);*/
 	D(2,14, 17);
-	D.print();
+	cout << "D =       ";D.print();
 	//C = A + B;
 	//C.print();
 	//C = A - B;
@@ -210,14 +285,14 @@ int main() {
 	//C.print();
 	//C = A / B;
 	cout << "----------------" << endl;
-	C.print();
-	D.print();
-	C = D++;
-	C.print();
-	D.print();
+	cout << "C =       "; C.print();
+	cout << "D =       "; D.print();
+	/*C = D++;
+	cout << "C = D++   "; C.print();
+	cout << "D =       "; D.print();*/
 	//A = B = C = Point(2, 3);
 
-
+	
 
 #endif //
 
