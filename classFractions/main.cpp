@@ -1,4 +1,4 @@
-#include"Header.h"
+ï»¿#include"Header.h"
 
 class Fraction;
 Fraction operator+( Fraction left, Fraction right);
@@ -73,7 +73,7 @@ public:
 		if (!integer && !numerator)cout << 0;
 		cout << endl;
 	}
-	Fraction& operator= (const Fraction& other) {// îïåðàòîð ïðèñâîåíèÿ
+	Fraction& operator= (const Fraction& other) {// Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€ Ð¿Ñ€Ð¸ÑÐ²Ð¾ÐµÐ½Ð¸Ñ
 		this->integer = other.integer;
 		this->numerator = other.numerator;
 		this->denominator = other.denominator;
@@ -130,41 +130,41 @@ public:
 		return *this;
 	}
 
-	Fraction() {//êîíñòðóêòîð êëàññà 
+	Fraction() {//ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ ÐºÐ»Ð°ÑÑÐ° 
 		this->integer = 0;
 		this->numerator = 0;
 		this->denominator = 1;
 	}
-	Fraction(int numerator,int denominator) {//êîíñòðóêòîð êëàññà 
+	Fraction(int numerator,int denominator) {//ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ ÐºÐ»Ð°ÑÑÐ° 
 		this->integer = 0;
 		this->numerator = numerator;
 		this->set_denominator(denominator);
 	}
-	Fraction(int integer) {//êîíñòðóêòîð êëàññà 
+	Fraction(int integer) {//ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ ÐºÐ»Ð°ÑÑÐ° 
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
 	}
-	Fraction(int integer, int numerator, int denominator) {//êîíñòðóêòîð êëàññà ñ èíèöèàëèçàöèåé
+	Fraction(int integer, int numerator, int denominator) {//ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ ÐºÐ»Ð°ÑÑÐ° Ñ Ð¸Ð½Ð¸Ñ†Ð¸Ð°Ð»Ð¸Ð·Ð°Ñ†Ð¸ÐµÐ¹
 		this->integer = integer;
 		this->numerator = numerator;
 		this->set_denominator(denominator);
 	}
-	Fraction(const Fraction& other) {//êîïèðóþùèé êîíñòðóêòîð
+	Fraction(const Fraction& other) {//ÐºÐ¾Ð¿Ð¸Ñ€ÑƒÑŽÑ‰Ð¸Ð¹ ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€
 		this->integer = other.integer;
 		this->numerator = other.numerator;
 		this->denominator = other.denominator;
 		//cout << "copyconstructor" << this << endl;
 	}
-	~Fraction() {//äåñòðóêòîð êëàññà
+	~Fraction() {//Ð´ÐµÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ ÐºÐ»Ð°ÑÑÐ°
 		//cout << "destructor "<< this<< endl;
 	}
 };
 
-//1. Àðèôìåòè÷åñêèå îïåðàòîðû : +, -, *, / ;
-//2. Ñîñòàâíûå ïðèñâàèâàíèÿ : +=, -=, *=, /=;
+//1. ÐÑ€Ð¸Ñ„Ð¼ÐµÑ‚Ð¸Ñ‡ÐµÑÐºÐ¸Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ñ‹ : +, -, *, / ;
+//2. Ð¡Ð¾ÑÑ‚Ð°Ð²Ð½Ñ‹Ðµ Ð¿Ñ€Ð¸ÑÐ²Ð°Ð¸Ð²Ð°Ð½Ð¸Ñ : +=, -=, *=, /=;
 //3. Incremento / Decremento;
-//4. Îïåðàòîðû ñðàâíåíèÿ : == , != , > , < , >= , <= ;
+//4. ÐžÐ¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ñ‹ ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸Ñ : == , != , > , < , >= , <= ;
 
 bool operator==( Fraction left, Fraction right) {
 	left.to_improper();
