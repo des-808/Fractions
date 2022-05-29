@@ -14,11 +14,11 @@ public:
 	void set_integer(int integer) { this->integer = integer; }
 	void set_numerator(int numerator) { this->numerator = numerator; }
 	void set_denominator(int denominator) { this->denominator = denominator; }
-	void set_ind(int integer, int numerator,int denominator) {
+	/*void set_ind(int integer, int numerator,int denominator) {
 		this->integer = integer;
 		this->numerator = numerator;
 		this->denominator = denominator;
-	}
+	}*/
 	int maxKrChislo(int numerator, int denominator) {
 		int max = 0;
 		int xz = (numerator > denominator) ?  denominator: numerator;
@@ -141,12 +141,14 @@ public:
 };
 
 bool operator==(const Fraction& left, const Fraction& right) {
-	if ((left.get_numerator() * right.get_denominator()) == (left.get_denominator() * right.get_numerator())) { return true; }
-	else { return false; }
+	/*if ((left.get_numerator() * right.get_denominator()) == (left.get_denominator() * right.get_numerator())) { return true; }
+	else { return false; }*/
+	return (left.get_numerator() * right.get_denominator()) == (left.get_denominator() * right.get_numerator());
 }
 bool operator>=(const Fraction& left, const Fraction& right) {
-	if ((left.get_numerator() * right.get_denominator()) >= (left.get_denominator() * right.get_numerator())) { return true; }
-	else { return false; }
+	/*if ((left.get_numerator() * right.get_denominator()) >= (left.get_denominator() * right.get_numerator())) { return true; }
+	else { return false; }*/
+	return !(left == right);
 }
 bool operator<=(const Fraction& left, const Fraction& right) {
 	if ((left.get_numerator() * right.get_denominator()) <= (left.get_denominator() * right.get_numerator())) { return true; }
