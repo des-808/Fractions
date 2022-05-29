@@ -101,28 +101,51 @@ public:
 		//cout << "copyAssigment  " << this << endl;
 		return *this;
 	}
-	/*Fraction& operator++() {
-		numerator++;
-		denominator++;
+
+
+	Fraction& operator*= ( Fraction other) {// оператор присвоения
+		other.to_improper();
+
+		this->set_numerator(this->get_numerator()* other.get_numerator());
+		this->set_denominator(this->get_denominator()* other.get_denominator());
+
+		/*this->integer = other.integer;
+		this->numerator = other.numerator;
+		this->denominator = other.denominator;*/
+		return *this;
+			
+
+	
+	//Fraction result;
+	//result.set_numerator(left.get_numerator() * right.get_numerator());
+	//result.set_denominator(left.get_denominator() * right.get_denominator());
+	//result.to_proper();
+	
+}
+
+
+
+
+
+	Fraction& operator++() {
+		integer++;
 		return *this;
 	}
-	Fraction& operator++(int) {
+	Fraction operator++(int) {
 		Fraction vspom = *this;
-		this->numerator++;
-		this->denominator++;
+		this->integer++;
+		
 		return vspom;
 	}
 	Fraction& operator--() {
-		this->numerator--;
-		this->denominator--;
+		this->integer--;
 		return *this;
 	}
-	Fraction& operator--(int) {
+	Fraction operator--(int) {
 		Fraction vspom = *this;
-		this->numerator--;
-		this->denominator--;
+		this->integer--;
 		return vspom;
-	}*/
+	}
 	Fraction& operator()(int integer, int numerator, int denominator)
 	{
 		set_numerator(integer * denominator + numerator);
@@ -281,9 +304,16 @@ int main() {
 	Fraction C = A * B;
 	C.print();
 	(A / B).print();
-	B.inverted().print();
-
-
+	//B.inverted().print();
+	cout << "\n----------------------------------\n";
+	A *= B;
+	A.print();
+	B.print();
+	cout << "\n----------------------------------\n";
+	A = B++;
+	A.print(); 
+	B.print();
+	cout << "\n----------------------------------\n";
 
 	//if (D >= E) { cout << "rabotaet" << endl; }
 	//cout << "E =       "; E.print();
