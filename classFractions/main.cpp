@@ -1,10 +1,10 @@
 #include"Header.h"
 
 class Fraction;
-Fraction& operator*(Fraction left, Fraction right);
+Fraction operator+( Fraction left, Fraction right);
+Fraction operator-( Fraction left, Fraction right);
+Fraction operator*( Fraction left, Fraction right);
 Fraction operator/(const Fraction& left, const Fraction& right);
-Fraction& operator+( Fraction left, Fraction right);
-Fraction& operator-( Fraction left, Fraction right);
 class Fraction {
 	int integer;// celoe;
 	int numerator;// chislitel;
@@ -104,7 +104,6 @@ public:
 	Fraction  operator++(int) {
 		Fraction vspom = *this;
 		this->integer++;
-		
 		return vspom;
 	}
 	Fraction& operator--() {
@@ -117,15 +116,13 @@ public:
 		return vspom;
 	}
 
-	Fraction& operator()(int integer, int numerator, int denominator)
-	{
-		set_numerator(integer * denominator + numerator);
-		set_denominator(denominator);
-		//cout << "operator() 1 " << this << endl;
+	Fraction& operator()(int integer, int numerator, int denominator){
+		this->set_integer(integer);
+		this->set_numerator(numerator);
+		this->set_denominator(denominator);
 		return *this;
 	}
-	Fraction& operator()(int numerator, int denominator)
-	{
+	Fraction& operator()(int numerator, int denominator){
 		set_integer(0);
 		set_numerator(numerator);
 		set_denominator(denominator);
@@ -137,25 +134,21 @@ public:
 		this->integer = 0;
 		this->numerator = 0;
 		this->denominator = 1;
-
 	}
 	Fraction(int numerator,int denominator) {//конструктор класса 
 		this->integer = 0;
 		this->numerator = numerator;
 		this->set_denominator(denominator);
-
 	}
 	Fraction(int integer) {//конструктор класса 
 		this->integer = integer;
 		this->numerator = 0;
 		this->denominator = 1;
-
 	}
 	Fraction(int integer, int numerator, int denominator) {//конструктор класса с инициализацией
 		this->integer = integer;
 		this->numerator = numerator;
 		this->set_denominator(denominator);
-
 	}
 	Fraction(const Fraction& other) {//копирующий конструктор
 		this->integer = other.integer;
@@ -213,7 +206,7 @@ bool operator< ( Fraction left, Fraction right) {
 	else { return false; }
 }
 
-Fraction& operator+( Fraction left, Fraction right) {
+Fraction operator+( Fraction left, Fraction right) {
 	Fraction result;
 	left.to_improper();
 	right.to_improper();
@@ -230,7 +223,7 @@ Fraction& operator+( Fraction left, Fraction right) {
 	//}
 	return result.to_proper();
 }
-Fraction& operator-( Fraction left, Fraction right) {
+Fraction operator-( Fraction left, Fraction right) {
 	Fraction result;
 	left.to_improper();
 	right.to_improper();
@@ -247,7 +240,7 @@ Fraction& operator-( Fraction left, Fraction right) {
 	}
 	return result.to_proper();
 }
-Fraction& operator*( Fraction left, Fraction right) {
+Fraction operator*( Fraction left, Fraction right) {
 	left.to_improper();
 	right.to_improper();
 	//Fraction result;
@@ -288,19 +281,15 @@ int main() {
 	Fraction B( 3, 4, 5);  B.print();
 	Fraction C = A * B;    C.print();
 	
-	cout << "A+B  = "; (A + B).print();
-	cout << "A-B  = "; (A - B).print();
-	cout << "A*B  = "; (A * B).print();
-	cout << "A/B  = "; (A / B).print();
-	C = A;
-	cout << "C+=B = "; (C += B).print();
-	C = A;
-	cout << "C-=B = "; (C -= B).print();
-	C = A;
-	cout << "C*=B = "; (C *= B).print();
-	C = A;
-	cout << "C/=B = "; (C /= B).print();
-	C = A;
+			   cout << "A+B  = "; (A + B). print();
+			   cout << "A-B  = "; (A - B). print();
+			   cout << "A*B  = "; (A * B). print();
+			   cout << "A/B  = "; (A / B). print();
+	A(2, 3, 4);cout << "A+=B = "; (A += B).print();
+	A(2, 3, 4);cout << "A-=B = "; (A -= B).print();
+	A(2, 3, 4);cout << "A*=B = "; (A *= B).print();
+	A(2, 3, 4);cout << "A/=B = "; (A /= B).print();
+	A(2, 3, 4);
 	cout <<"C == B ? " << ((C == B) ? " TRUE " : " FALSE ") << endl;
 	cout <<"C != B ? " << ((C != B) ? " TRUE " : " FALSE ") << endl;
 	cout <<"C >  B ? " << ((C >  B) ? " TRUE " : " FALSE ") << endl;
