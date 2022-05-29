@@ -308,9 +308,5 @@ int main() {
 	cout <<"C >= B ? " << ((C >= B) ? " TRUE " : " FALSE ") << endl;
 	cout <<"C <= B ? " << ((C <= B) ? " TRUE " : " FALSE ") << endl;
 
-	
-
 	return 0;
 }
-
-//4. Операторы сравнения : == , != , > , < , >= , <= ;
