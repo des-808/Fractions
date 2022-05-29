@@ -1,5 +1,7 @@
 #include"Header.h"
 
+class Fraction;
+Fraction& operator*(Fraction left, Fraction right);
 class Fraction {
 	int integer;// celoe;
 	int numerator;// chislitel;
@@ -103,28 +105,14 @@ public:
 	}
 
 
-	Fraction& operator*= ( Fraction other) {// оператор присвоения
-		other.to_improper();
-
-		this->set_numerator(this->get_numerator()* other.get_numerator());
-		this->set_denominator(this->get_denominator()* other.get_denominator());
-
-		/*this->integer = other.integer;
-		this->numerator = other.numerator;
-		this->denominator = other.denominator;*/
-		return *this;
-			
-
-	
-	//Fraction result;
-	//result.set_numerator(left.get_numerator() * right.get_numerator());
-	//result.set_denominator(left.get_denominator() * right.get_denominator());
-	//result.to_proper();
+	Fraction& operator*= (Fraction other) {// оператор присвоения
+		/*other.to_improper();
+		this->set_numerator(this->get_numerator() * other.get_numerator());
+		this->set_denominator(this->get_denominator() * other.get_denominator());
+		return *this;*/
+		return *this = *this * other;
 	
 }
-
-
-
 
 
 	Fraction& operator++() {
@@ -292,17 +280,10 @@ int main() {
 	D.print();
 #endif // CONSTRUCTORS_CHECK
 
-
-	Fraction A(2, 3, 4);
-	A.print();
-	/*A.to_improper();
-	A.print();
-	A.to_proper();
-	A.print();*/
-	Fraction B( 3, 4,5);
-	B.print();
-	Fraction C = A * B;
-	C.print();
+	Fraction A( 2, 3, 4);  A.print();
+	Fraction B( 3, 4, 5);  B.print();
+	Fraction C = A * B;    C.print();
+	
 	(A / B).print();
 	//B.inverted().print();
 	cout << "\n----------------------------------\n";
@@ -314,26 +295,6 @@ int main() {
 	A.print(); 
 	B.print();
 	cout << "\n----------------------------------\n";
-
-	//if (D >= E) { cout << "rabotaet" << endl; }
-	//cout << "E =       "; E.print();
-	//cout << "D =       "; D.print();
-	//Fraction C(2, 36);
-	//int xz = C.minKrChislo(9, 17); cout << "xz = " << xz << endl;
-
-	//C = E + D; cout << "C = E+D   "; C.print();
-	//C = E - D; cout << "C = E-D   "; C.print();
-	//C = E * D; cout << "C = E*D   "; C.print();
-	//D(2, 14, 17);
-	//cout << "D =       "; D.print();
-	////C = A + B;
-	////C.print();
-	////C = A - B;
-	////C.print();
-	////C = A * B;
-	////C.print();
-	////C = A / B;
-
 
 	return 0;
 }
