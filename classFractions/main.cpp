@@ -63,6 +63,27 @@ public:
 	//}
 	////////////////////////////////////////////////////
 	//void print() { cout << "Целое = " << this->integer << "\t" << "Числитель = " << this->numerator << "\t" << "Знаменатель = " << this->denominator << endl; }
+
+
+	Fraction& to_improper() {
+		numerator += integer * denominator;
+			integer = 0;
+			return *this;
+	}
+	Fraction& to_proper() {
+		integer += numerator / denominator;
+		numerator %= denominator;
+		return *this;
+	}
+	Fraction inverted()const{
+		Fraction inverted = *this;
+		inverted.to_improper();
+		int buffer = inverted.numerator;
+		inverted.numerator = inverted.denominator;
+		inverted.denominator = buffer;
+		return inverted;
+	
+	}
 	void print() {
 		if (integer)cout << integer;
 		if (numerator) {
@@ -207,23 +228,34 @@ public:
 //	}
 //	return result;
 //}
-//Fraction& operator*(const Fraction& left, const Fraction& right) {
-//	Fraction result;
-//	result.set_numerator(left.get_numerator() * right.get_numerator());
-//	result.set_denominator(left.get_denominator() * right.get_denominator());
-//	return result;
-//}
-//
-//Fraction& operator/(const Fraction& left, const int right) {
-//	Fraction result;
-//	result.set_numerator(left.get_numerator() / right);
-//	result.set_denominator(left.get_denominator() / right);
-//	return result;
-//}
+Fraction& operator*(Fraction left, Fraction right) {
+	left.to_improper();
+	right.to_improper();
+	//Fraction result;
+	//result.set_numerator(left.get_numerator() * right.get_numerator());
+	//result.set_denominator(left.get_denominator() * right.get_denominator());
+	//result.to_proper();
+	return Fraction(
+		left.get_numerator() * right.get_numerator(),
+	    left.get_denominator()* right.get_denominator()
+	).to_proper();
+}
 
+Fraction operator/(const Fraction& left,const Fraction& right) {
+
+	return left * right.inverted();
+}
+
+
+
+
+
+//#define CONSTRUCTORS_CHECK
+
+//#define CONSTRUCTORS_CHECK
 int main() {
 	setlocale(LC_ALL, "Russian");
-
+#ifdef CONSTRUCTORS_CHECK
 	Fraction A;
 	A.print();
 	Fraction B = 5;
@@ -235,6 +267,24 @@ int main() {
 	Fraction E;
 	E = D;
 	D.print();
+#endif // CONSTRUCTORS_CHECK
+
+
+	Fraction A(2, 3, 4);
+	A.print();
+	/*A.to_improper();
+	A.print();
+	A.to_proper();
+	A.print();*/
+	Fraction B( 3, 4,5);
+	B.print();
+	Fraction C = A * B;
+	C.print();
+	(A / B).print();
+	B.inverted().print();
+
+
+
 	//if (D >= E) { cout << "rabotaet" << endl; }
 	//cout << "E =       "; E.print();
 	//cout << "D =       "; D.print();
