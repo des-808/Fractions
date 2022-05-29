@@ -199,19 +199,19 @@ Fraction& operator*(const Fraction& left, const Fraction& right) {
 	result.set_denominator(left.get_denominator() * right.get_denominator());
 	return result;
 }
-//
-//Fraction& operator/(const Fraction& left, const int right) {
-//	Fraction result;
-//	result.set_numerator(left.get_numerator() / right);
-//	result.set_denominator(left.get_denominator() / right);
-//	return result;
-//}
+
+Fraction& operator/(const Fraction& left, const int right) {
+	Fraction result;
+	result.set_numerator(left.get_numerator() / right);
+	result.set_denominator(left.get_denominator() / right);
+	return result;
+}
 
 int main() {
 	setlocale(LC_ALL, "Russian");
 
-	Fraction D(2,3);
-	Fraction E(1,4);
+	Fraction D(2,3,4);
+	Fraction E(3,4,5);
 	if (D >= E) { cout << "rabotaet" << endl; }
 	cout << "E =       "; E.print();
 	cout << "D =       "; D.print();
