@@ -176,8 +176,6 @@ Fraction& operator+(const Fraction& left, const Fraction& right) {
 	}
 	return result;
 }
-
-
 Fraction& operator-(const Fraction& left, const Fraction& right) {
 	Fraction result;
 	if(left.get_denominator() == right.get_denominator()) {
@@ -207,9 +205,6 @@ Fraction& operator*(const Fraction& left, const Fraction& right) {
 //	return result;
 //}
 
-
-
-
 int main() {
 	setlocale(LC_ALL, "Russian");
 
@@ -223,13 +218,7 @@ int main() {
 	
 	C = E + D; cout << "C = E+D   "; C.print();
 	C = E - D; cout << "C = E-D   "; C.print();
-	//C = C / C.minKrChislo(C.get_numerator(), C.get_denominator());
-	//int z  = C.minKrChislo(C.get_denominator(), E.get_denominator());
-	//cout << "z = " << z << endl;
-	/*cout << "CCC =       "; C.print();
-	cout << "C = E+D   "; C.print();*/
-	/*Fraction A(2,1, 2);
-	Fraction B(3, 4);*/
+	C = E * D; cout << "C = E*D   "; C.print();
 	D(2,14, 17);
 	cout << "D =       ";D.print();
 	//C = A + B;
@@ -239,14 +228,7 @@ int main() {
 	//C = A * B;
 	//C.print();
 	//C = A / B;
-	cout << "----------------" << endl;
-	cout << "C =       "; C.print();
-	cout << "D =       "; D.print();
-	/*C = D++;
-	cout << "C = D++   "; C.print();
-	cout << "D =       "; D.print();*/
-	//A = B = C = Point(2, 3);
-
+	
 
 	return 0;
 }
