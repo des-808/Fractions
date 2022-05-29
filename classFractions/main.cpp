@@ -210,17 +210,17 @@ Fraction operator+( Fraction left, Fraction right) {
 	Fraction result;
 	left.to_improper();
 	right.to_improper();
-	/*if (left.get_denominator() == right.get_denominator()) {
+	if (left.get_denominator() == right.get_denominator()) {
 		result.set_numerator(left.get_numerator() + right.get_numerator());
 		result.set_denominator(left.get_denominator());
 	}
-	else {*/
+	else {
 		int nok = result.minKrChislo(left.get_denominator(), right.get_denominator());
 		int mn1 = nok / left.get_denominator();
 		int mn2 = nok / right.get_denominator();
 		result.set_numerator(left.get_numerator() * mn1 + right.get_numerator() * mn2);
 		result.set_denominator(left.get_denominator() * mn1);// + right.get_denominator() * mn2
-	//}
+	}
 	return result.to_proper();
 }
 Fraction operator-( Fraction left, Fraction right) {
@@ -289,7 +289,18 @@ int main() {
 	A(2, 3, 4);cout << "A-=B = "; (A -= B).print();
 	A(2, 3, 4);cout << "A*=B = "; (A *= B).print();
 	A(2, 3, 4);cout << "A/=B = "; (A /= B).print();
-	A(2, 3, 4);
+	A(2, 3, 4);cout << "A = "   ;  A.print();
+	cout << "------------ A++ -----------" << endl;
+	B = A++;cout << "A++ "; A.print(); cout << "B = "; B.print();
+	B = ++A;cout << "++A "; A.print(); cout << "B = "; B.print();
+	cout << "------------END-------------" << endl;
+
+	cout << "------------ A-- -----------" << endl;
+	B = A--; cout << "A-- "; A.print(); cout << "B = "; B.print();
+	B = --A; cout << "--A "; A.print(); cout << "B = "; B.print();
+	cout << "------------END-------------" << endl;
+
+
 	cout <<"C == B ? " << ((C == B) ? " TRUE " : " FALSE ") << endl;
 	cout <<"C != B ? " << ((C != B) ? " TRUE " : " FALSE ") << endl;
 	cout <<"C >  B ? " << ((C >  B) ? " TRUE " : " FALSE ") << endl;
