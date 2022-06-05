@@ -21,16 +21,13 @@ public:
 		this->denominator = denominator; 
 	}
 	
-	//int maxKrChislo(int numerator, int denominator) {
-	//	int max = 0;
-	//	int xz = (numerator > denominator) ? denominator : numerator;
-	//	for (int i = 2; i < xz / 2; i += 2) {
-	//		if (numerator % i == 0 && denominator % i == 0) {
-	//			max = ((numerator > denominator) ? denominator / i : numerator / i);
-	//		}
-	//	}
-	//	return max;
-	//}
+	unsigned int maxKrChislo(unsigned int numerator, unsigned int denominator) {
+		if (numerator == denominator)
+			return numerator;
+		if (numerator > denominator)
+			return maxKrChislo(numerator - denominator, denominator);
+		return maxKrChislo(numerator, denominator - numerator);
+	}
 	int minKrChislo(int denominator_left, int denominator_right) {
 		return denominator_left * (denominator_right / gcd(denominator_left, denominator_right));
 	}
@@ -116,6 +113,24 @@ public:
 		return vspom;
 	}
 
+	explicit operator int()const {
+		return integer;
+	}
+	 operator double()const {
+		return integer+(double)numerator/denominator;
+	}
+	 
+	 
+	 Fraction (double xz) {
+		 integer = xz;//преобразовываем дробь в целое число при этом дробь отбрасывается
+		 xz = xz - integer;//получаем дробную часть
+		 xz *= 100000000;
+		 numerator = xz;
+		 denominator = 100000000;
+		 xz = maxKrChislo(numerator, denominator);
+		 set_numerator(numerator/xz);
+		 set_denominator(denominator/xz);
+	 }
 	Fraction& operator()(int integer, int numerator, int denominator){
 		this->set_integer(integer);
 		this->set_numerator(numerator);
@@ -231,11 +246,39 @@ std::ostream& operator<<(std::ostream& os, const Fraction& obj) {
 	if (!obj.get_integer() && !obj.get_numerator())os << 0;
 	return os;
 }
-void operator>>(std::istream& os,  Fraction& obj) {
-	int a;
-	os >> a; obj.set_integer(a);
-	os >> a; obj.set_numerator(a);
-	os >> a; obj.set_denominator(a);
+std::istream& operator>>(std::istream& is, Fraction& obj) {
+	const int SIZE = 256;
+	char sz_buffer[SIZE] = {};
+	//is >> sz_buffer;
+	is.getline(sz_buffer, SIZE);
+	char* sz_numbers[3] = {};
+	char sz_delimetrs[] = "() /";
+	int n = 0;
+	for (char* pch = strtok(sz_buffer, sz_delimetrs); pch != 0; pch = strtok(NULL, sz_delimetrs))
+	{
+		sz_numbers[n++]=pch;
+	}
+	obj = Fraction();
+	//for (int i = 0; i < n; i++)cout << sz_numbers[i] << "\t"; cout << endl;
+	switch (n) {
+	case 1: obj.set_integer(atoi(sz_numbers[0])); break;
+	case 2: 
+		obj.set_numerator(atoi(sz_numbers[0])); 
+		obj.set_denominator(atoi(sz_numbers[1])); break;
+	case 3:obj(atoi(sz_numbers[0]),atoi(sz_numbers[1]), atoi(sz_numbers[2]));
+
+	}
+	
+	/*int integer,numerator,denominator;
+	cin >> integer >> numerator >> denominator;
+	obj(integer,numerator,denominator);*/
+	
+	
+	/*int a;
+	is >> a; obj.set_integer(a);
+	is >> a; obj.set_numerator(a);
+	is >> a; obj.set_denominator(a);*/
+	return is;
 }
 
 
@@ -294,6 +337,10 @@ Fraction operator/(const Fraction& left,const Fraction& right) {
 //#define CONSTRUCTORS_CHECK
 
 //#define CONSTRUCTORS_CHECK
+//#define DEBUG
+//#define DEBUG2
+#define CONVERSION_HOME_WORK
+//#define CONVERSION
 int main() {
 	setlocale(LC_ALL, "Russian");
 #ifdef CONSTRUCTORS_CHECK
@@ -310,46 +357,141 @@ int main() {
 	D.print();
 #endif // CONSTRUCTORS_CHECK
 
-	Fraction A( 2, 3, 4);  A.print();
-	//Fraction B( 2, 3, 4);  B.print();
-	Fraction B( 3, 4, 5);  B.print();
-	Fraction C = A * B;    C.print();
+	//Fraction A( 2, 3, 4);  A.print();
+	////Fraction B( 2, 3, 4);  B.print();
+	//Fraction B( 3, 4, 5);  B.print();
+	//Fraction C = A * B;    C.print();
+
+#ifdef DEBUG
 	
-			   cout << "A+B  = "; (A + B). print();
-			   cout << "A-B  = "; (A - B). print();
-			   cout << "A*B  = "; (A * B). print();
-			   cout << "A/B  = "; (A / B). print();
-	A(2, 3, 4);cout << "A+=B = "; (A += B).print();
-	A(2, 3, 4);cout << "A-=B = "; (A -= B).print();
-	A(2, 3, 4);cout << "A*=B = "; (A *= B).print();
-	A(2, 3, 4);cout << "A/=B = "; (A /= B).print();
-	A(2, 3, 4);cout << "A = "   ;  A.print();
-	cout << "------------ A++ -----------" << endl;
-	B = A++;cout << "A++ "; A.print(); cout << "B = "; B.print();
-	B = ++A;cout << "++A "; A.print(); cout << "B = "; B.print();
-	cout << "------------END-------------" << endl;
+   cout << "A+B  = "; (A + B). print();
+   cout << "A-B  = "; (A - B). print();
+   cout << "A*B  = "; (A * B). print();
+   cout << "A/B  = "; (A / B). print();
+A(2, 3, 4);cout << "A+=B = "; (A += B).print();
+A(2, 3, 4);cout << "A-=B = "; (A -= B).print();
+A(2, 3, 4);cout << "A*=B = "; (A *= B).print();
+A(2, 3, 4);cout << "A/=B = "; (A /= B).print();
+A(2, 3, 4);cout << "A = "   ;  A.print();
+cout << "------------ A++ -----------" << endl;
+B = A++;cout << "A++ "; A.print(); cout << "B = "; B.print();
+B = ++A;cout << "++A "; A.print(); cout << "B = "; B.print();
+cout << "------------END-------------" << endl;
 
-	cout << "------------ A-- -----------" << endl;
-	B = A--; cout << "A-- "; A.print(); cout << "B = "; B.print();
-	B = --A; cout << "--A "; A.print(); cout << "B = "; B.print();
-	cout << "------------END-------------" << endl;
+cout << "------------ A-- -----------" << endl;
+B = A--; cout << "A-- "; A.print(); cout << "B = "; B.print();
+B = --A; cout << "--A "; A.print(); cout << "B = "; B.print();
+cout << "------------END-------------" << endl;
 
 
-	cout <<"C == B ? " << ((C == B) ? " TRUE " : " FALSE ") << endl;
-	cout <<"C != B ? " << ((C != B) ? " TRUE " : " FALSE ") << endl;
-	cout <<"C >  B ? " << ((C >  B) ? " TRUE " : " FALSE ") << endl;
-	cout <<"C <  B ? " << ((C <  B) ? " TRUE " : " FALSE ") << endl;
-	cout <<"C >= B ? " << ((C >= B) ? " TRUE " : " FALSE ") << endl;
-	cout <<"C <= B ? " << ((C <= B) ? " TRUE " : " FALSE ") << endl;
-	cout << A << endl;
-	cin >> A;
-	cout << A << endl;
+cout <<"C == B ? " << ((C == B) ? " TRUE " : " FALSE ") << endl;
+cout <<"C != B ? " << ((C != B) ? " TRUE " : " FALSE ") << endl;
+cout <<"C >  B ? " << ((C >  B) ? " TRUE " : " FALSE ") << endl;
+cout <<"C <  B ? " << ((C <  B) ? " TRUE " : " FALSE ") << endl;
+cout <<"C >= B ? " << ((C >= B) ? " TRUE " : " FALSE ") << endl;
+cout <<"C <= B ? " << ((C <= B) ? " TRUE " : " FALSE ") << endl;
+cout << A << endl;
+cin >> A;
+cout << A << endl;
+#endif // DEBUG
+#ifdef DEBUG2
+int a = A;
+cout << a << endl;
+
+
+
+double b = A;
+cout << b << endl;
+#endif // DEBUG2
+//////////////////////////////////////////////////////////////////////////////////
+#ifdef CONVERSION_HOME_WORK
+Fraction A;
+double xz = 3.14;
+A.set_integer(xz) ;//преобразовываем дробь в целое число при этом дробь отбрасывается
+xz = xz - A.get_integer();//получаем дробную часть
+xz *= 100000000;
+A.set_numerator(xz);
+A.set_denominator (100000000);
+xz = A.maxKrChislo(A.get_numerator(),A. get_denominator());
+A.set_numerator(A.get_numerator() / xz);
+A.set_denominator(A.get_denominator() / xz);
+cout << A << endl;
+
+
+
+
+A = 2.3;
+cout << A << endl;
+#endif // CONVERSION_HOME_WORK
+//////////////////////////////////////////////////////////////////////////////////
+#ifdef CONVERSION
+Fraction A(2, 3, 4);
+cout << A << endl;
+
+cin >> A;
+cout << A << endl;
+#endif // CONVERSION
+
+
+
 	return 0;
 }
 
 /*
 потоки ostream и istream всегда передаются и возвращаются по ссылке
 их нельзя передать в функцию или вернуть из функции по значению
+*/
+
+
+
+
+/*
+ПРЕОБРАЗОВАНИЕ ТИПОВ
+в языке с++ существует явное и неявное преобразование типов
+ЯВНОЕ преобразование типов выполняет программист
+а НЕЯВНОЕ - компилятор.
+
+для того что-бы явно преобразовать значение в другой тип данных необходимо написать желаемый тип данных в круглых скобках перед значением
+(type)value;си подобная форма записи
+	или же преобразуемое значение написать в круглых скобках после желаемого типа данных
+type(value);функцианальная форма записи
+
+как явные так и не явные преобразования бывают от меньшего к большему или от большего к меньшему
+при чём 2е может привести к потере данных
+при этом компилятор выдаёт предупреждение С4244
+
+все операторы С++ по возможности преобразуют все значения в выражении к наибольшему типу тоесть в 
+основном неявные преобразования производятся от меньшего к большему
+но операторы присваивания всегда преобразуют значения с права к типу с лева и не важно произойдет при этом потеря данных или нет
+
+ПРЕОБРАЗОВАНИЕ ТИПОВ В ООП
+в ооп кроме явных и неявных преобразований существуют так же 2 направления преобразования типов
+1е например из других типов в наш
+2е направление из нашего типа в другие типы
+  
+  1е выполняет конструктор с 1м параметром и оператор присваивания
+  single argument constructor i copuassigment
+  2 выполняют операторы преобразования типов
+
+  для того что бы значения преобр в обьекты наше класса в класе должны быть конструктор с 1м парам этого типа
+  single argument constructor i assigment operator при чем второй без первого не работает
+
+  ключевое слово ecsplicit(явный) запрещает неявные преобразования типов и позволяет только явные преобразования
+
+ПРЕОБРАЗОВАНИЕ НАЩЕГО ТИПА В ДРУГИЕ ТИПЫ
+	для того что бы обьекты нашего класса преобразовывать в другие типы в классе должны быть соответствующие операторы преобразования.
+операторы преобразования - это самые обычные методы имя которых состоит из ключевого слова оператор и спецификатора существующего типа данных
+
+operator type(){
+	.....
+	.....
+	return....
+}
+в операторах преобразования ни когда не пишется тип возвращаемого значения по скольку он является частью имени метода и следовательно и так понятен
+операторы преобразования могут быть перегружены только в нутри класса
+
+
+
 
 
 
