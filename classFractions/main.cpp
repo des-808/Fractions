@@ -173,38 +173,53 @@ bool operator==( Fraction left, Fraction right) {
 	else { return false; }*/
 	return (left.get_numerator() * right.get_denominator()) == (left.get_denominator() * right.get_numerator());
 }
-bool operator!=( Fraction left, Fraction right) {
-	left.to_improper();
-	right.to_improper();
-	/*if ((left.get_numerator() * right.get_denominator()) == (left.get_denominator() * right.get_numerator())) { return true; }
-	else { return false; }*/
-	return (left.get_numerator() * right.get_denominator()) != (left.get_denominator() * right.get_numerator());
+bool operator!=(const Fraction& left,const Fraction& right) {
+	return !(left == right);
 }
-bool operator>=( Fraction left, Fraction right) {
-	left.to_improper();
-	right.to_improper();
-	if ((left.get_numerator() * right.get_denominator()) >= (left.get_denominator() * right.get_numerator())) { return true; }
-	else { return false; }
-	//return !(left == right);
-}
-bool operator<=( Fraction left, Fraction right) {
-	left.to_improper();
-	right.to_improper();
-	if ((left.get_numerator() * right.get_denominator()) <= (left.get_denominator() * right.get_numerator())) { return true; }
-	else { return false; }
-}
+//bool operator!=( Fraction left, Fraction right) {
+//	left.to_improper();
+//	right.to_improper();
+//	/*if ((left.get_numerator() * right.get_denominator()) == (left.get_denominator() * right.get_numerator())) { return true; }
+//	else { return false; }*/
+//	return (left.get_numerator() * right.get_denominator()) != (left.get_denominator() * right.get_numerator());
+//}
 bool operator> ( Fraction left, Fraction right) {
 	left.to_improper();
 	right.to_improper();
-	if ((left.get_numerator() * right.get_denominator()) > (left.get_denominator() * right.get_numerator())) { return true; }
-	else { return false; }
+	/*if ((left.get_numerator() * right.get_denominator()) > (left.get_denominator() * right.get_numerator())) { return true; }
+	else { return false; }*/
+	return (left.get_numerator() * right.get_denominator()) > (left.get_denominator() * right.get_numerator());
 }
 bool operator< ( Fraction left, Fraction right) {
 	left.to_improper();
 	right.to_improper();
-	if ((left.get_numerator() * right.get_denominator()) < (left.get_denominator() * right.get_numerator())) { return true; }
-	else { return false; }
+	/*if ((left.get_numerator() * right.get_denominator()) < (left.get_denominator() * right.get_numerator())) { return true; }
+	else { return false; }*/
+	return (left.get_numerator() * right.get_denominator()) < (left.get_denominator() * right.get_numerator());
 }
+bool operator>=( const Fraction& left, const  Fraction& right) {
+	//return left >right|| left == right;
+	return !(left < right);
+}
+//bool operator>=(Fraction left, Fraction right) {
+//	left.to_improper();
+//	right.to_improper();
+//	/*if ((left.get_numerator() * right.get_denominator()) >= (left.get_denominator() * right.get_numerator())) { return true; }
+//	else { return false; }*/
+//	//return !(left == right);
+//	return (left.get_numerator() * right.get_denominator()) >= (left.get_denominator() * right.get_numerator());
+//}
+bool operator<=(const Fraction& left, const  Fraction& right) {
+	//return left < right || left == right;
+	return !(left > right);
+}
+//bool operator<=( Fraction left, Fraction right) {
+//	left.to_improper();
+//	right.to_improper();
+//	/*if ((left.get_numerator() * right.get_denominator()) <= (left.get_denominator() * right.get_numerator())) { return true; }
+//	else { return false; }*/
+//	return (left.get_numerator() * right.get_denominator()) <= (left.get_denominator() * right.get_numerator());
+//}
 
 Fraction operator+( Fraction left, Fraction right) {
 	Fraction result;
