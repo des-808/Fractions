@@ -125,12 +125,11 @@ public:
 		 xz += 0.000000001;
 		 integer = xz;//преобразовываем дробь в целое число при этом дробь отбрасывается
 		 xz = xz - integer;//получаем дробную часть
-		 xz *= 100000000;
-		 numerator = xz;
-		 denominator = 100000000;
-		 xz = maxKrChislo(numerator, denominator);
-		 set_numerator(numerator/xz);
-		 set_denominator(denominator/xz);
+		 numerator = xz * 100000000;// дробную часть в целую
+		 denominator = 100000000;//в делитель пишем такой же множитель на который и умножили числитель для правильного преобразования дроби
+		 xz = maxKrChislo(numerator, denominator);//ищем максимальное кратное число
+		 set_numerator(numerator/xz);//сокращаем дробь если это получится
+		 set_denominator(denominator/xz);//сокращаем дробь если это получится
 	 }
 	Fraction& operator()(int integer, int numerator, int denominator){
 		this->set_integer(integer);
