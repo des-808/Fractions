@@ -13,13 +13,12 @@ public:
 
 	void set_integer(int integer) { this->integer = integer; }
 	void set_numerator(int numerator) { this->numerator = numerator; }
-	void set_denominator(int denominator) { this->denominator = denominator; }
-	/*void set_ind(int integer, int numerator,int denominator) {
-		this->integer = integer;
-		this->numerator = numerator;
+	void set_denominator(int denominator) {
+		if (denominator == 0) { denominator = 1; }
 		this->denominator = denominator;
-	}*/
-	int maxKrChislo(int numerator, int denominator) {
+	}
+	
+	/*int maxKrChislo(int numerator, int denominator) {
 		int max = 0;
 		int xz = (numerator > denominator) ?  denominator: numerator;
 		for(int i = 2; i < xz/2;i+=2){
@@ -28,7 +27,7 @@ public:
 		}
  }
 		return max;
-	}
+	}*/
 	int minKrChislo(int denominator_left, int denominator_right) {
 		return denominator_left * (denominator_right / gcd(denominator_left, denominator_right));
 	}
@@ -64,14 +63,14 @@ public:
 	////////////////////////////////////////////////////
 	//void print() { cout << "Целое = " << this->integer << "\t" << "Числитель = " << this->numerator << "\t" << "Знаменатель = " << this->denominator << endl; }
 	void print() {
-		if (this->numerator > this->denominator) {
-			//this->integer = this->numerator / this->denominator;
-			//this->numerator %= this->denominator;
-			cout << this->numerator / this->denominator << "." << this->numerator % this->denominator << "/" << this->denominator << endl;
+		if (integer)cout << integer;
+		if (numerator) {
+			if (integer)cout << "(";
+			cout << numerator << "/" << denominator;
+			if (integer)cout << ")";
 		}
-		else {
-			cout << this->numerator << "/" << this->denominator << endl;
-		}
+		if (!integer && !numerator)cout << 0;
+		cout << endl;
 	}
 	Fraction& operator= (const Fraction& other) {// оператор присвоения
 		if (other.numerator > other.denominator) {
@@ -84,40 +83,37 @@ public:
 		//cout << "copyAssigment  " << this << endl;
 		return *this;
 	}
-	/*Fraction& operator++() {
-		numerator++;
-		denominator++;
+	Fraction& operator++() {
+		this->integer++;
 		return *this;
 	}
-	Fraction& operator++(int) {
+	Fraction operator++(int) {
 		Fraction vspom = *this;
-		this->numerator++;
-		this->denominator++;
+		this->integer++;
 		return vspom;
 	}
 	Fraction& operator--() {
-		this->numerator--;
-		this->denominator--;
+		this->integer--;
 		return *this;
 	}
-	Fraction& operator--(int) {
+	Fraction operator--(int) {
 		Fraction vspom = *this;
-		this->numerator--;
-		this->denominator--;
+		this->integer--;
 		return vspom;
-	}*/
+	}
 	Fraction& operator()(int integer,int numerator, int denominator)
 	{
-		set_numerator(integer * denominator + numerator);
-		set_denominator(denominator);
+		this->set_integer(integer);
+		this->set_numerator(numerator);
+		this->set_denominator(denominator);
 		//cout << "operator() 1 " << this << endl;
 		return *this;
 	}
 	Fraction& operator()(int numerator, int denominator)
 	{
-		set_integer(0);
-		set_numerator(numerator);
-		set_denominator(denominator);
+		this->set_integer(0);
+		this->set_numerator(numerator);
+		this->set_denominator(denominator);
 		//cout << "operator() 2 " << this << endl;
 		return *this;
 	}
@@ -200,37 +196,33 @@ Fraction& operator*(const Fraction& left, const Fraction& right) {
 	return result;
 }
 
-Fraction& operator/(const Fraction& left, const int right) {
+Fraction& operator/(const Fraction& left, const Fraction& right) {
 	Fraction result;
-	result.set_numerator(left.get_numerator() / right);
-	result.set_denominator(left.get_denominator() / right);
+	result.set_numerator(left.get_numerator() * right.get_denominator());
+	result.set_denominator(left.get_denominator() * right.get_numerator());
 	return result;
 }
 
 int main() {
 	setlocale(LC_ALL, "Russian");
 
-	Fraction D(2,3,4);
-	Fraction E(3,4,5);
-	if (D >= E) { cout << "rabotaet" << endl; }
-	cout << "E =       "; E.print();
-	cout << "D =       "; D.print();
+	Fraction A(2,3,4);
+	Fraction B(3,4,5);
 	Fraction C(2,36);
-	int xz=C.minKrChislo(9, 17);cout << "xz = " << xz << endl;
+	//int xz=C.minKrChislo(9, 17);cout << "xz = " << xz << endl;
 	
-	C = E + D; cout << "C = E+D   "; C.print();
-	C = E - D; cout << "C = E-D   "; C.print();
-	C = E * D; cout << "C = E*D   "; C.print();
-	D(2,14, 17);
-	cout << "D =       ";D.print();
-	//C = A + B;
-	//C.print();
-	//C = A - B;
-	//C.print();
-	//C = A * B;
-	//C.print();
-	//C = A / B;
+	C = A + B; cout << "C = E+D   "; C.print();
+	C = A - B; cout << "C = E-D   "; C.print();
+	C = A * B; cout << "C = E*D   "; C.print();
+	C = A / B; cout << "C = E*D   "; C.print();
 	
+
+	cout << "C == B ? " << ((C == B) ? " TRUE " : " FALSE ") << endl;
+	//cout << "C != B ? " << ((C != B) ? " TRUE " : " FALSE ") << endl;
+	cout << "C >  B ? " << ((C >  B) ? " TRUE " : " FALSE ") << endl;
+	cout << "C <  B ? " << ((C <  B) ? " TRUE " : " FALSE ") << endl;
+	cout << "C >= B ? " << ((C >= B) ? " TRUE " : " FALSE ") << endl;
+	cout << "C <= B ? " << ((C <= B) ? " TRUE " : " FALSE ") << endl;
 
 	return 0;
 }
