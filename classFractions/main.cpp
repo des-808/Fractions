@@ -221,6 +221,25 @@ bool operator<=(const Fraction& left, const  Fraction& right) {
 //	return (left.get_numerator() * right.get_denominator()) <= (left.get_denominator() * right.get_numerator());
 //}
 
+std::ostream& operator<<(std::ostream& os, const Fraction& obj) {
+	if (obj.get_integer())os << obj.get_integer();
+	if (obj.get_numerator()) {
+		if (obj.get_integer())os << "(";
+		cout << obj.get_numerator() << "/" << obj.get_denominator();
+		if (obj.get_integer())os << ")";
+	}
+	if (!obj.get_integer() && !obj.get_numerator())os << 0;
+	return os;
+}
+void operator>>(std::istream& os,  Fraction& obj) {
+	int a;
+	os >> a; obj.set_integer(a);
+	os >> a; obj.set_numerator(a);
+	os >> a; obj.set_denominator(a);
+}
+
+
+
 Fraction operator+( Fraction left, Fraction right) {
 	Fraction result;
 	left.to_improper();
@@ -322,6 +341,16 @@ int main() {
 	cout <<"C <  B ? " << ((C <  B) ? " TRUE " : " FALSE ") << endl;
 	cout <<"C >= B ? " << ((C >= B) ? " TRUE " : " FALSE ") << endl;
 	cout <<"C <= B ? " << ((C <= B) ? " TRUE " : " FALSE ") << endl;
-
+	cout << A << endl;
+	cin >> A;
+	cout << A << endl;
 	return 0;
 }
+
+/*
+потоки ostream и istream всегда передаются и возвращаются по ссылке
+их нельзя передать в функцию или вернуть из функции по значению
+
+
+
+*/
