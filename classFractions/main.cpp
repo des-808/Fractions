@@ -75,6 +75,7 @@ public:
 		this->numerator = other.numerator;
 		this->denominator = other.denominator;
 		//cout << "copyAssigment  " << this << endl;
+		reduce();
 		return *this;
 	}
 	Fraction& operator*= (Fraction other) {//
@@ -113,14 +114,14 @@ public:
 		return vspom;
 	}
 
-	explicit operator int()const {
-		return integer;
+	explicit Fraction(int integer)
+		//	явный
+	{
+		this->integer = integer;
+		this->numerator = 0;
+		this->denominator = 1;
 	}
-	 operator double()const {
-		return integer+(double)numerator/denominator;
-	}
-	 
-	 
+
 	 Fraction (double xz) {
 		 xz += 0.000000001;
 		 integer = xz;//преобразовываем дробь в целое число при этом дробь отбрасывается
@@ -130,7 +131,25 @@ public:
 		 xz = maxKrChislo(numerator, denominator);//ищем максимальное кратное число
 		 set_numerator(numerator/xz);//сокращаем дробь если это получится
 		 set_denominator(denominator/xz);//сокращаем дробь если это получится
+		 
 	 }
+	 Fraction& reduce()
+	 {
+		int x =  maxKrChislo(numerator, denominator);//ищем максимальное кратное число
+		set_numerator(numerator / x);//сокращаем дробь если это получится
+		set_denominator(denominator / x);//сокращаем дробь если это получится 
+		return *this;
+	 }
+
+	 explicit operator int()const
+	 {
+		 return integer;
+	 }
+	 operator double()const
+	 {
+		 return integer + (double)numerator / denominator;
+	 }
+
 	Fraction& operator()(int integer, int numerator, int denominator){
 		this->set_integer(integer);
 		this->set_numerator(numerator);
@@ -138,9 +157,9 @@ public:
 		return *this;
 	}
 	Fraction& operator()(int numerator, int denominator){
-		set_integer(0);
-		set_numerator(numerator);
-		set_denominator(denominator);
+		this->set_integer(0);
+		this->set_numerator(numerator);
+		this->set_denominator(denominator);
 		//cout << "operator() 2 " << this << endl;
 		return *this;
 	}
@@ -154,11 +173,6 @@ public:
 		this->integer = 0;
 		this->numerator = numerator;
 		this->set_denominator(denominator);
-	}
-	Fraction(int integer) {//конструктор класса 
-		this->integer = integer;
-		this->numerator = 0;
-		this->denominator = 1;
 	}
 	Fraction(int integer, int numerator, int denominator) {//конструктор класса с инициализацией
 		this->integer = integer;
@@ -405,22 +419,34 @@ cout << b << endl;
 #endif // DEBUG2
 //////////////////////////////////////////////////////////////////////////////////
 #ifdef CONVERSION_HOME_WORK
+//Fraction A;
+//double xz = 3.14+0.000000001;
+//A.set_integer(xz) ;//преобразовываем дробь в целое число при этом дробь отбрасывается
+//xz = xz - A.get_integer();//получаем дробную часть
+//xz *= 100000000;
+//A.set_numerator(xz);
+//A.set_denominator (100000000);
+//xz = A.maxKrChislo(A.get_numerator(),A. get_denominator());
+//A.set_numerator(A.get_numerator() / xz);
+//A.set_denominator(A.get_denominator() / xz);
+//cout << A << endl;
+
+
+
+cout << "xz" << endl;
 Fraction A;
-double xz = 3.14+0.000000001;
-A.set_integer(xz) ;//преобразовываем дробь в целое число при этом дробь отбрасывается
-xz = xz - A.get_integer();//получаем дробную часть
-xz *= 100000000;
-A.set_numerator(xz);
-A.set_denominator (100000000);
-xz = A.maxKrChislo(A.get_numerator(),A. get_denominator());
-A.set_numerator(A.get_numerator() / xz);
-A.set_denominator(A.get_denominator() / xz);
+A = 3.14;
+Fraction B = 3.14;
 cout << A << endl;
-
-
-
-
-A = 2.314 ;
+cout << B<< endl;
+B *= 3.14;
+cout << B << endl;
+cout << "--------------------------------" << endl;
+A ( 2 ,3,4);
+cout << A << endl;
+cout << "--------------------------------" << endl;
+B (3, 4);
+A += B;
 cout << A << endl;
 #endif // CONVERSION_HOME_WORK
 //////////////////////////////////////////////////////////////////////////////////
