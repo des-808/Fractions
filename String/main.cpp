@@ -17,7 +17,7 @@ public:
 		cout << "создаём масив char с размером по умолчанию" << endl;
 	}
 	//String(const int SIZE, char sz_buffer) {//конструктор класса 
-	//	sz_buffer[SIZE];
+	//	sz_buffer[SIZE]; 
 	//	cout << "создаём масив char с указанным размером" << endl;
 	//}
 	String(int SIZE) {//конструктор класса 
