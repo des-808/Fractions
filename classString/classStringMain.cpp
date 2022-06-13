@@ -25,15 +25,6 @@ public:
 		for (int i = 0; i < length; i++) {this->str[i] = str[i];}
 		cout << "Construktor:\t" << this << endl;
 	}
-	/*String& Concat(const String& other)
-		{
-		    length += other.length;
-		    char* tmp = new char[length + 1];
-			::strcpy(tmp, str);
-		    ::strcat(tmp, other.str);
-		    delete[] str;
-		    str = tmp;
-		}*/
 	String& operator+=(String other) {//
 		return *this = *this + other;
 	}
@@ -190,13 +181,17 @@ cout << str3 << endl;
 //str.to_lower();
 //str.print();
 //String str1 = "abrakadabra";
-String str1;
-cin >> str1;
+
+cout << "Введите строку: " << endl;
+String str1;cin >> str1;
+
 str1.revers();
+str1.print();
+str1.to_lower();
 str1.print();
 str1.to_upper();
 str1.print();
-cout << ((str1.is_palindrome()) ? "Полиндром" : "НеПолиндром")<< endl; 
+cout << ((str1.is_palindrome()) ? "Палиндром!!" : "НеПалиндром!!")<< endl; 
 //std::transform(str1.begin(), str1.end(), str1.begin(), ::toupper);
 	return 0;
 }
