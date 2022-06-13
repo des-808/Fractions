@@ -128,7 +128,6 @@ std::istream& operator>>(std::istream& is, String& other) {
 	char *buffer = new char[256]{};
 	is.getline(buffer, 255);
 	//is >> buffer;
-			/*int lenght = sizeof(buffer);other.set_size(lenght+1);*/
 	other.set_size(strlen(buffer));
 	other = buffer;
 	delete[] buffer;
