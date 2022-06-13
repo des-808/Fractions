@@ -13,7 +13,8 @@
 #include<cstdlib>
 #include <sstream>
 #include <utility>
-
+#include <string>
+#include <algorithm>
 //using namespace System;
 
 using std::cout;
@@ -26,6 +27,6 @@ using std::_Iosb;
 using std::setw;
 using std::pair;
 using std::make_pair;
-
+using std::transform;
 //using namespace std;
 
