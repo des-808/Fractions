@@ -64,7 +64,8 @@ public:
 		char *buffer = new char[length] {};
 		int i = 0;
 		for (; i < length; i++) {
-			buffer[i] = (this->str[i] > 0x60 && this->str[i] < 0x7B)?this->str[i] - (byte)32:this->str[i];
+			if (this->str[i] >0) { buffer[i] = (this->str[i] >= 'a' && this->str[i] <= 'z') ? this->str[i] - (byte)32 : this->str[i]; }
+			else { buffer[i] = (this->str[i] >='а' && this->str[i] <='я') ? this->str[i] - (byte)32 : this->str[i]; }
 		}
 		buffer[i-1] = '\0';
 		*this = buffer;
@@ -73,7 +74,8 @@ public:
 		char* buffer = new char[length] {};
 		int i = 0;
 		for (; i < length; i++) {
-			buffer[i] = (this->str[i] > 0x40 && this->str[i] < 0x5B)?this->str[i] + (byte)32:this->str[i];
+			if (this->str[i] >0) { buffer[i] = (this->str[i] >='A' && this->str[i] <='Z') ? this->str[i] + (byte)32 : this->str[i]; }
+			else { buffer[i] = (this->str[i] >='А' && this->str[i] <='Я') ? this->str[i] + (byte)32 : this->str[i]; }
 		}
 		buffer[i - 1] = '\0';
 		*this = buffer;
@@ -139,7 +141,13 @@ std::istream& operator>>(std::istream& is, String& other) {
 //#define CONSTRAKTORS_CHECK
 //#define XZ
 int main() {
-	setlocale(LC_ALL, "Russian");
+	//setlocale(LC_ALL, "Russian");
+
+	 setlocale(LC_ALL, "Rus");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+
+
 	//String C;
 	//C.print();
 	//String E (44);
@@ -183,12 +191,11 @@ cout << str3 << endl;
 
 cout << "Введите строку: " << endl;
 String str1;cin >> str1;
-
-str1.revers();
-str1.print();
 str1.to_lower();
 str1.print();
 str1.to_upper();
+str1.print();
+str1.revers();
 str1.print();
 cout << ((str1.is_palindrome()) ? "Палиндром!!" : "НеПалиндром!!")<< endl; 
 //std::transform(str1.begin(), str1.end(), str1.begin(), ::toupper);
