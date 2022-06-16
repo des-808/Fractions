@@ -127,8 +127,8 @@ std::ostream& operator<<(std::ostream& os,const String& obj) {
 	return os<< obj.get_str();
 }
 std::istream& operator>>(std::istream& is, String& other) {
-	char *buffer = new char[256]{};
-	is.getline(buffer, 255);
+	char *buffer = new char[256*256]{};
+	is.getline(buffer, (256 * 256)-1);
 	//is >> buffer;
 	other.set_size(strlen(buffer));
 	other = buffer;
