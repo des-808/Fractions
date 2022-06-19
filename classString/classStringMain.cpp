@@ -142,11 +142,9 @@ std::istream& operator>>(std::istream& is, String& other) {
 //#define XZ
 int main() {
 	//setlocale(LC_ALL, "Russian");
-
-	 setlocale(LC_ALL, "Rus");
+	setlocale(LC_ALL, "Rus");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-
 
 	//String C;
 	//C.print();
@@ -198,7 +196,7 @@ str1.print();
 str1.revers();
 str1.print();
 cout << ((str1.is_palindrome()) ? "Палиндром!!" : "НеПалиндром!!")<< endl; 
-//std::transform(str1.begin(), str1.end(), str1.begin(), ::toupper);
+
 	return 0;
 }
 
