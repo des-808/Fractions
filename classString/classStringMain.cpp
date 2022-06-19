@@ -19,16 +19,28 @@ public:
 	{//конструктор класса 
 		/*this->length = length;
 		this->str = new char[length] {};*/
-		cout << "Default Construktor" << endl;
+		cout << "Default Construktor\t" << this<< endl;
 	}
-	String(const char* str):length ( strlen(str) + 1), str(new char[length] {})
+	//String(const char* str):length ( strlen(str) + 1), str(new char[length] {})
+	//{
+	//	/*this->length = strlen(str) + 1;
+	//	this->str = new char[length] {};*/
+	//	for (int i = 0; i < length; i++) {this->str[i] = str[i];}
+	//	cout << "Construktor:\t" << this << endl;
+	//}
+	String(const char* str):String(strlen(str)+1)
 	{
-		/*this->length = strlen(str) + 1;
-		this->str = new char[length] {};*/
+		
 		for (int i = 0; i < length; i++) {this->str[i] = str[i];}
 		cout << "Construktor:\t" << this << endl;
 	}
-	String(const String& other): length(other.length), str(new char[length] {})
+	/*String(const String& other): length(other.length), str(new char[length] {})
+	{
+		for (int i = 0; i < length; i++) {
+			this->str[i] = other.str[i];
+		}cout << "CopyConstruktor:\t" << this << endl;
+	}*/
+	String(const String& other):String(other.str)
 	{
 		for (int i = 0; i < length; i++) {
 			this->str[i] = other.str[i];
@@ -214,8 +226,8 @@ str2.print();
 str2.to_upper();
 str2.print();
 #endif // KEYBOARD_INPU_CHECK
-
-
+String str3 = str2;
+str3.print();
 	return 0;  
 }
 
