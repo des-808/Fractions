@@ -9,114 +9,116 @@ class String {
 	char* str;
 
 public:
-	char get_size()const { return  length; }
-	const char* get_str()const { return str; }
-	char* get_str() { return str; }
-	void set_size(int integer) { this->length = integer; }
-
-	
-	String(int length = 80): length(length), str (new char[length] {})
-	{//конструктор класса 
-		/*this->length = length;
-		this->str = new char[length] {};*/
-		cout << "Default Construktor\t" << this<< endl;
-	}
-	//String(const char* str):length ( strlen(str) + 1), str(new char[length] {})
-	//{
-	//	/*this->length = strlen(str) + 1;
-	//	this->str = new char[length] {};*/
-	//	for (int i = 0; i < length; i++) {this->str[i] = str[i];}
-	//	cout << "Construktor:\t" << this << endl;
-	//}
-	String(const char* str):String(strlen(str)+1)
-	{
-		
-		for (int i = 0; i < length; i++) {this->str[i] = str[i];}
-		cout << "Construktor:\t" << this << endl;
-	}
-	/*String(const String& other): length(other.length), str(new char[length] {})
-	{
-		for (int i = 0; i < length; i++) {
-			this->str[i] = other.str[i];
-		}cout << "CopyConstruktor:\t" << this << endl;
-	}*/
-	String(const String& other):String(other.str)
-	{
-		for (int i = 0; i < length; i++) { 
-			this->str[i] = other.str[i];
-		}cout << "CopyConstruktor:\t" << this << endl;
-	}
-	~String() {//деструктор класса
-		delete[] this->str;
-		cout << "destructor "<< this<< endl;
-	}
-	String& operator=(const String& other) {
-		if (this == &other)return *this;
-		delete[] this->str;
-		this->length = other.length;
-		this->str = new char[length] {};
-		for (int i = 0; i < length; i++) {this->str[i] = other.str[i];}
-		cout << "CopyAssigment:\t" << this << endl;
-		return *this;
-	}
-	String& operator+=(String other) {//
-		return *this = *this + other;
-	}
-	char operator[](int i)const {
-		return str[i];
-	}
-	char& operator[](int i) {
-		return str[i];
-	}
-	void print()const {
-		cout << "----------------------------" << endl;
-		cout << "print() " << "  Length: " << length << "\tStr: " << str << endl;
-		cout << "----------------------------" << endl;
-	}
-
-	void to_upper() {
-		int i = 0;
-		for (; i < length; i++) {
-			this->str[i] = toupper(this->str[i]);
-		
-		}
-	}
-	void to_lower() {
-		int i = 0;
-		for (; i < length; i++) {
-			this->str[i] = tolower(this->str[i]);
-		}
-	}
-	void revers() {
-		int len;
-		char t;
-		char* start, * end;
-		len = strlen(str);
-		start = this->str;
-		end = &this->str[len - 1];
-		while (start < end) {
-			t = *start;
-			*start = *end;
-			*end = t;
-			start++;
-			end--;
-		}
-	} 
-	bool is_palindrome() {
-		int len;
-		char t;
-		char* start, * end;
-		len = strlen(str);
-		start = this->str;
-		end = &this->str[len - 1];
-		for (int i = 0;i<length/2;i++) {
-			if (!(*start == *end)) { return false; }
-			start++;
-			end--;
-		}
-		return true;
-	}
+	char get_size()const;
+	const char* get_str()const;
+	char* get_str();
+	void set_size(int integer);
+	explicit String(int length = 80);
+	String(const char* str);
+	String(const String& other);
+	~String();
+	String& operator=(const String& other);
+	String& operator+=(String other);
+	char operator[](int i)const;
+	char& operator[](int i);
+	void print()const;
+	void to_upper();
+	void to_lower();
+	void revers();
+	bool is_palindrome();
 };
+char String::get_size()const { return  length; }
+const char* String::get_str()const { return str; }
+char* String::get_str() { return str; }
+void String::set_size(int integer) { this->length = integer; }
+
+
+String::String(int length) : length(length), str(new char[length] {})
+{
+	cout << "Default Construktor\t" << this << endl;
+}
+String::String(const char* str) :String(strlen(str) + 1)
+{
+
+	for (int i = 0; i < length; i++) { this->str[i] = str[i]; }
+	cout << "Construktor:\t" << this << endl;
+}
+String::String(const String& other) :String(other.str)
+{
+	for (int i = 0; i < length; i++) {
+		this->str[i] = other.str[i];
+	}cout << "CopyConstruktor:\t" << this << endl;
+}
+String::~String() {//деструктор класса
+	delete[] this->str;
+	cout << "destructor " << this << endl;
+}
+String& String::operator=(const String& other) {
+	if (this == &other)return *this;
+	delete[] this->str;
+	this->length = other.length;
+	this->str = new char[length] {};
+	for (int i = 0; i < length; i++) { this->str[i] = other.str[i]; }
+	cout << "CopyAssigment:\t" << this << endl;
+	return *this;
+}
+String& String::operator+=(String other) {//
+	return *this = *this + other;
+}
+char String::operator[](int i)const {
+	return str[i];
+}
+char& String::operator[](int i) {
+	return str[i];
+}
+void String::print()const {
+	cout << "----------------------------" << endl;
+	cout << "print() " << "  Length: " << length << "\tStr: " << str << endl;
+	cout << "----------------------------" << endl;
+}
+void String::to_upper() {
+	int i = 0;
+	for (; i < length; i++) {
+		this->str[i] = toupper(this->str[i]);
+
+	}
+}
+void String::to_lower() {
+	int i = 0;
+	for (; i < length; i++) {
+		this->str[i] = tolower(this->str[i]);
+	}
+}
+void String::revers() {
+	int len;
+	char t;
+	char* start, * end;
+	len = strlen(str);
+	start = this->str;
+	end = &this->str[len - 1];
+	while (start < end) {
+		t = *start;
+		*start = *end;
+		*end = t;
+		start++;
+		end--;
+	}
+}
+bool String::is_palindrome() {
+	int len;
+	char t;
+	char* start, * end;
+	len = strlen(str);
+	start = this->str;
+	end = &this->str[len - 1];
+	for (int i = 0; i < length / 2; i++) {
+		if (!(*start == *end)) { return false; }
+		start++;
+		end--;
+	}
+	return true;
+}
+
 
 String operator+(const String& left, const String& right) {
 	String cat(left.get_size() + right.get_size() - 1);
