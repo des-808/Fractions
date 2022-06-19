@@ -25,9 +25,6 @@ public:
 		for (int i = 0; i < length; i++) {this->str[i] = str[i];}
 		cout << "Construktor:\t" << this << endl;
 	}
-	String& operator+=(String other) {//
-		return *this = *this + other;
-	}
 	String(const String& other) {
 		this->length = other.length;
 		this->str = new char[length] {};
@@ -48,6 +45,9 @@ public:
 		cout << "CopyAssigment:\t" << this << endl;
 		return *this;
 	}
+	String& operator+=(String other) {//
+		return *this = *this + other;
+	}
 	char operator[](int i)const {
 		return str[i];
 	}
@@ -61,24 +61,28 @@ public:
 	}
 
 	void to_upper() {
-		char *buffer = new char[length] {};
+		//char *buffer = new char[length] {};
 		int i = 0;
 		for (; i < length; i++) {
-			if (this->str[i] >0) { buffer[i] = (this->str[i] >= 'a' && this->str[i] <= 'z') ? this->str[i] - (byte)32 : this->str[i]; }
-			else { buffer[i] = (this->str[i] >='а' && this->str[i] <='я') ? this->str[i] - (byte)32 : this->str[i]; }
+			/*if (this->str[i] >0) { buffer[i] = (this->str[i] >= 'a' && this->str[i] <= 'z') ? this->str[i] - (byte)32 : this->str[i]; }
+			else { buffer[i] = (this->str[i] >='а' && this->str[i] <='я') ? this->str[i] - (byte)32 : this->str[i]; }*/
+			this->str[i] = toupper(this->str[i]);
+		
 		}
-		buffer[i-1] = '\0';
-		*this = buffer;
+		//buffer[i-1] = '\0';
+		//*this = buffer;
 	}
 	void to_lower() {
-		char* buffer = new char[length] {};
+		//char* buffer = new char[length] {};
 		int i = 0;
 		for (; i < length; i++) {
-			if (this->str[i] >0) { buffer[i] = (this->str[i] >='A' && this->str[i] <='Z') ? this->str[i] + (byte)32 : this->str[i]; }
+			/*if (this->str[i] >0) { buffer[i] = (this->str[i] >='A' && this->str[i] <='Z') ? this->str[i] + (byte)32 : this->str[i]; }
 			else { buffer[i] = (this->str[i] >='А' && this->str[i] <='Я') ? this->str[i] + (byte)32 : this->str[i]; }
+		*/
+			this->str[i] = tolower(this->str[i]);
 		}
-		buffer[i - 1] = '\0';
-		*this = buffer;
+		//buffer[i - 1] = '\0';
+		//*this = buffer;
 	}
 	void revers() {
 		int len;
@@ -127,24 +131,33 @@ std::ostream& operator<<(std::ostream& os,const String& obj) {
 	return os<< obj.get_str();
 }
 std::istream& operator>>(std::istream& is, String& other) {
-	char *buffer = new char[256*256]{};
-	is.getline(buffer, (256 * 256)-1);
-	//is >> buffer;
+	char *buffer = new char[USHRT_MAX]{};//USHRT_MAX
+	SetConsoleCP(1251);
+	//is.getline(buffer, USHRT_MAX-1);
+	is >> buffer;
+	SetConsoleCP(866);
 	other.set_size(strlen(buffer));
 	other = buffer;
 	delete[] buffer;
 		return is;
 	}
-
+std::istream& getline(std::istream& is ,String& obj) {
+	SetConsoleCP(1251);
+	is.getline(obj.get_str(), obj.get_size());
+	SetConsoleCP(866);
+	return is;
+}
 
 
 //#define CONSTRAKTORS_CHECK
 //#define XZ
+//#define HOMEWORK
+//#define KEYBOARD_INPU_CHECK
 int main() {
 	//setlocale(LC_ALL, "Russian");
 	setlocale(LC_ALL, "Rus");
-	SetConsoleCP(1251);
-	SetConsoleOutputCP(1251);
+	//SetConsoleCP(1251);
+	//SetConsoleOutputCP(1251);
 
 	//String C;
 	//C.print();
@@ -186,16 +199,30 @@ cout << str3 << endl;
 //str.to_lower();
 //str.print();
 //String str1 = "abrakadabra";
-
+#ifdef HOMEWORK
 cout << "Введите строку: " << endl;
-String str1;cin >> str1;
+String str1;
+cin >> str1;
 str1.to_lower();
 str1.print();
 str1.to_upper();
 str1.print();
 str1.revers();
 str1.print();
-cout << ((str1.is_palindrome()) ? "Палиндром!!" : "НеПалиндром!!")<< endl; 
+cout << ((str1.is_palindrome()) ? "Палиндром!!" : "НеПалиндром!!")<< endl;   
+#endif // HOMEWORK
+
+#ifdef KEYBOARD_INPU_CHECK
+cout << "Введите строку: " << endl;
+String str2;
+getline(cin, str2);
+cout << str2 << endl;
+str2.to_lower();
+str2.print();
+str2.to_upper();
+str2.print();
+#endif // KEYBOARD_INPU_CHECK
+
 
 	return 0;
 }
