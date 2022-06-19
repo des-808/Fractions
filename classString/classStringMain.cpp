@@ -42,7 +42,7 @@ public:
 	}*/
 	String(const String& other):String(other.str)
 	{
-		for (int i = 0; i < length; i++) {
+		for (int i = 0; i < length; i++) { 
 			this->str[i] = other.str[i];
 		}cout << "CopyConstruktor:\t" << this << endl;
 	}
