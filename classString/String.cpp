@@ -1,8 +1,8 @@
-#include "Strings.h"
+ï»¿#include "Strings.h"
 
 
 ///////////////////////////////////////////////////////////////////
-////////////class definition   (îïğåäåëåíèå êëàññà)  //////////////
+////////////class definition   (Ğ¾Ğ¿Ñ€ĞµĞ´ĞµĞ»ĞµĞ½Ğ¸Ğµ ĞºĞ»Ğ°ÑÑĞ°)  //////////////
 ///////////////////////////////////////////////////////////////////
 char String::get_size()const { return  length; }
 const char* String::get_str()const { return str; }
@@ -25,7 +25,14 @@ String::String(const String& other) :String(other.str)
 		this->str[i] = other.str[i];
 	}cout << "CopyConstruktor:\t" << this << endl;
 }
-String::~String() {//äåñòğóêòîğ êëàññà
+String::String(String&& other) 
+{
+	this->length = other.length;
+	this->str = other.str;
+	other.str = nullptr;
+	cout << "MoveConstructor\t" << this << endl;
+}
+String::~String() {//Ğ´ĞµÑÑ‚Ñ€ÑƒĞºÑ‚Ğ¾Ñ€ ĞºĞ»Ğ°ÑÑĞ°
 	delete[] this->str;
 	cout << "destructor " << this << endl;
 }
@@ -129,5 +136,5 @@ std::istream& getline(std::istream& is, String& obj) {
 	return is;
 }
 ///////////////////////////////////////////////////////////////////
-//////// class definition end  (êîíåö îïğåäåëåíèÿ êëàññà) /////////
+//////// class definition end  (ĞºĞ¾Ğ½ĞµÑ† Ğ¾Ğ¿Ñ€ĞµĞ´ĞµĞ»ĞµĞ½Ğ¸Ñ ĞºĞ»Ğ°ÑÑĞ°) /////////
 ///////////////////////////////////////////////////////////////////

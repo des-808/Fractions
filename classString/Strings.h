@@ -20,6 +20,7 @@ public:
 	explicit String(int length = 80);
 	String(const char* str);
 	String(const String& other);
+	String(String&& other);
 	~String();
 	String& operator=(const String& other);
 	String& operator+=(String other);

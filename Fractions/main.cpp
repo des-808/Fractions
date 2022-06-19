@@ -18,16 +18,7 @@ public:
 		this->denominator = denominator;
 	}
 	
-	/*int maxKrChislo(int numerator, int denominator) {
-		int max = 0;
-		int xz = (numerator > denominator) ?  denominator: numerator;
-		for(int i = 2; i < xz/2;i+=2){
-			if (numerator % i == 0 && denominator % i == 0) {
-				max = ((numerator > denominator) ? denominator / i : numerator / i);
-		}
- }
-		return max;
-	}*/
+	
 	int minKrChislo(int denominator_left, int denominator_right) {
 		return denominator_left * (denominator_right / gcd(denominator_left, denominator_right));
 	}
@@ -41,27 +32,7 @@ public:
 		return denominator_left;
 	}
 
-	//int gcd(int input[]) {
-	//	int result = input[0];
-	//	for (int i = 1; i < input.length; i++) {
-	//		result = gcd(result, input[i]);
-	//	}
-	//	return result;
-	//}
-
-	/*int lcm(int a, int b) {
-		return a * (b / gcd(a, b));
-	}*/
-
-	//int lcm(int input[]) {
-	//	int result = input[0];
-	//	for (int i = 1; i < input.length; i++) {
-	//		result = lcm(result, input[i]);
-	//	}
-	//	return result;
-	//}
 	////////////////////////////////////////////////////
-	//void print() { cout << "Целое = " << this->integer << "\t" << "Числитель = " << this->numerator << "\t" << "Знаменатель = " << this->denominator << endl; }
 	void print() {
 		if (integer)cout << integer;
 		if (numerator) {
