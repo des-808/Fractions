@@ -89,7 +89,7 @@ public:
 			start++;
 			end--;
 		}
-	}
+	} 
 	bool is_palindrome() {
 		int len;
 		char t;
