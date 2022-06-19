@@ -14,20 +14,22 @@ public:
 	char* get_str() { return str; }
 	void set_size(int integer) { this->length = integer; }
 
-	String(int length = 80) {//конструктор класса 
-		this->length = length;
-		this->str = new char[length]{};
-		cout << "создаём масив char с размером по умолчанию" << endl;
+	
+	String(int length = 80): length(length), str (new char[length] {})
+	{//конструктор класса 
+		/*this->length = length;
+		this->str = new char[length] {};*/
+		cout << "Default Construktor" << endl;
 	}
-	String(const char* str){
-		this->length = strlen(str) + 1;
-		this->str = new char[length] {};
+	String(const char* str):length ( strlen(str) + 1), str(new char[length] {})
+	{
+		/*this->length = strlen(str) + 1;
+		this->str = new char[length] {};*/
 		for (int i = 0; i < length; i++) {this->str[i] = str[i];}
 		cout << "Construktor:\t" << this << endl;
 	}
-	String(const String& other) {
-		this->length = other.length;
-		this->str = new char[length] {};
+	String(const String& other): length(other.length), str(new char[length] {})
+	{
 		for (int i = 0; i < length; i++) {
 			this->str[i] = other.str[i];
 		}cout << "CopyConstruktor:\t" << this << endl;
@@ -61,28 +63,17 @@ public:
 	}
 
 	void to_upper() {
-		//char *buffer = new char[length] {};
 		int i = 0;
 		for (; i < length; i++) {
-			/*if (this->str[i] >0) { buffer[i] = (this->str[i] >= 'a' && this->str[i] <= 'z') ? this->str[i] - (byte)32 : this->str[i]; }
-			else { buffer[i] = (this->str[i] >='а' && this->str[i] <='я') ? this->str[i] - (byte)32 : this->str[i]; }*/
 			this->str[i] = toupper(this->str[i]);
 		
 		}
-		//buffer[i-1] = '\0';
-		//*this = buffer;
 	}
 	void to_lower() {
-		//char* buffer = new char[length] {};
 		int i = 0;
 		for (; i < length; i++) {
-			/*if (this->str[i] >0) { buffer[i] = (this->str[i] >='A' && this->str[i] <='Z') ? this->str[i] + (byte)32 : this->str[i]; }
-			else { buffer[i] = (this->str[i] >='А' && this->str[i] <='Я') ? this->str[i] + (byte)32 : this->str[i]; }
-		*/
 			this->str[i] = tolower(this->str[i]);
 		}
-		//buffer[i - 1] = '\0';
-		//*this = buffer;
 	}
 	void revers() {
 		int len;
@@ -152,7 +143,7 @@ std::istream& getline(std::istream& is ,String& obj) {
 //#define CONSTRAKTORS_CHECK
 //#define XZ
 //#define HOMEWORK
-//#define KEYBOARD_INPU_CHECK
+#define KEYBOARD_INPU_CHECK
 int main() {
 	//setlocale(LC_ALL, "Russian");
 	setlocale(LC_ALL, "Rus");
@@ -213,10 +204,11 @@ cout << ((str1.is_palindrome()) ? "Палиндром!!" : "НеПалиндро
 #endif // HOMEWORK
 
 #ifdef KEYBOARD_INPU_CHECK
-cout << "Введите строку: " << endl;
-String str2;
-getline(cin, str2);
-cout << str2 << endl;
+//cout << "Введите строку: " << endl;
+//String str2;
+//getline(cin, str2);
+//cout << str2 << endl;
+String str2 = "Hello world!!";
 str2.to_lower();
 str2.print();
 str2.to_upper();
