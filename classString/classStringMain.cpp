@@ -13,6 +13,7 @@ public:
 	const char* get_str()const;
 	char* get_str();
 	void set_size(int integer);
+
 	explicit String(int length = 80);
 	String(const char* str);
 	String(const String& other);
@@ -31,7 +32,6 @@ char String::get_size()const { return  length; }
 const char* String::get_str()const { return str; }
 char* String::get_str() { return str; }
 void String::set_size(int integer) { this->length = integer; }
-
 
 String::String(int length) : length(length), str(new char[length] {})
 {
