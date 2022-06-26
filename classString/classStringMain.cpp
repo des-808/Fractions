@@ -92,7 +92,7 @@ public:
 	}
 	bool is_palindrome() {
 		int len;
-		char t;
+		//char t;
 		char* start, * end;
 		len = strlen(str);
 		start = this->str;
